@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-serif {
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+}
+
+.hero-text-scrim {
+  /* position: absolute; */
+  /* inset: -1.5rem -2rem; */
+  pointer-events: none;
+  z-index: 0;
+
+  backdrop-filter: blur(18px) saturate(105%);
+  -webkit-backdrop-filter: blur(18px) saturate(105%);
+  background: rgba(244, 241, 234, 0.8);
+
+  -webkit-mask-image: radial-gradient(ellipse 75% 80% at 35% 50%, black 45%, transparent 90%);
+  mask-image: radial-gradient(ellipse 75% 80% at 35% 50%, black 45%, transparent 90%);
+}

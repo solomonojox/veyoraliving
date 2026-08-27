@@ -7,27 +7,26 @@ import {
   FiUser,
   FiHeart,
   FiShoppingCart,
+  FiChevronDown,
   FiPhone,
   FiTruck,
   FiMenu,
   FiX,
 } from "react-icons/fi";
-import { useCart } from "@/lib/cart-context";
 
 const NAV_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "Shop", href: "/shop" },
-  { label: "Cart", href: "/cart" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Shop", hasDropdown: true },
+  { label: "Rooms", hasDropdown: true },
+  { label: "Inspiration", hasDropdown: true },
+  { label: "Design Services", hasDropdown: true },
+  { label: "Sale", hasDropdown: false, accent: true },
 ];
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { totalItems } = useCart();
 
   return (
-    <header className="w-full sticky top-0 z-50 bg-white border-b border-gray-400">
+    <header className="w-full sticky top-0 z-50 bg-white">
       {/* Top utility bar */}
       <div className="bg-[#2B3222] text-white text-xs">
         <div className="mx-auto max-w-384 px-4 sm:px-6 lg:px-10 py-2.5 flex items-center justify-between">
@@ -61,13 +60,16 @@ export default function Header() {
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-9">
             {NAV_LINKS.map((link) => (
-              <Link
+              <button
                 key={link.label}
-                href={link.href}
-                className="text-[15px] text-[#2B3222] hover:text-[#B5502F] transition-colors"
+                className={`flex items-center gap-1 text-[15px] transition-colors ${link.accent
+                    ? "text-[#B5502F]"
+                    : "text-[#2B3222] hover:text-[#B5502F]"
+                  }`}
               >
                 {link.label}
-              </Link>
+                {link.hasDropdown && <FiChevronDown className="text-xs mt-0.5" />}
+              </button>
             ))}
           </nav>
 
@@ -91,16 +93,15 @@ export default function Header() {
                 0
               </span>
             </button>
-            <Link
-              href="/cart"
+            <button
               aria-label="Cart"
               className="relative hover:text-[#B5502F] transition-colors"
             >
               <FiShoppingCart className="text-[19px]" />
               <span className="absolute -top-2 -right-2 bg-[#2B3222] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">
-                {totalItems}
+                0
               </span>
-            </Link>
+            </button>
             <button
               aria-label="Menu"
               className="lg:hidden"
@@ -117,14 +118,14 @@ export default function Header() {
         <div className="lg:hidden border-t border-[#2B3222]/10 bg-white">
           <nav className="flex flex-col px-4 sm:px-6 py-4 gap-4">
             {NAV_LINKS.map((link) => (
-              <Link
+              <button
                 key={link.label}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className="text-[15px] text-left text-[#2B3222] hover:text-[#B5502F] transition-colors"
+                className={`flex items-center justify-between text-[15px] text-left ${link.accent ? "text-[#B5502F]" : "text-[#2B3222]"
+                  }`}
               >
                 {link.label}
-              </Link>
+                {link.hasDropdown && <FiChevronDown className="text-xs" />}
+              </button>
             ))}
           </nav>
         </div>
